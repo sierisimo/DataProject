@@ -1,0 +1,23 @@
+{
+  "name": "dataproject",
+  "version": "0.0.1",
+  "description": "The final project for an school class",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sierisimo/DataProject.git"
+  },
+  "keywords": [
+    "homework",
+    "school"
+  ],
+  "author": "Sier Violencia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sierisimo/DataProject/issues"
+  },
+  "homepage": "https://github.com/sierisimo/DataProject#readme"
+}
