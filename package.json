@@ -23,5 +23,11 @@
   "homepage": "https://github.com/sierisimo/DataProject#readme",
   "dependencies": {
     "xlsjs": "^0.7.5"
+  },
+  "devDependencies": {
+    "debug": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-util": "^3.0.7",
+    "run-sequence": "^1.1.5"
   }
 }
