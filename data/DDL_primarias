@@ -1,0 +1,119 @@
+/*
+--- Created By
+--    Sinuhe Jaime Valencia
+--    Fernando Rivas Colunga
+--    Salvador Gamiño Reyes
+--
+-- Created at
+--    2015 - 11 - 30
+--
+-- Last Updated
+--    2015 - 12 - 2
+--
+*/
+
+/* Table that represents 'Entidades Federales' of Mexico */
+CREATE TABLE entidades(
+  id integer PRIMARY KEY,
+  nombre varchar(30) -- No states has more than this length
+);
+
+CREATE TABLE municipios(
+  id integer PRIMARY KEY,
+  nombre varchar(80),
+  clave integer,
+  entidad integer REFERENCES entidades
+);
+
+CREATE TABLE localidad(
+  id integer PRIMARY KEY,
+  nombre varchar(80),
+  clave integer,
+  municipio integer REFERENCES municipios
+);
+
+CREATE TABLE region(
+  id integer PRIMARY KEY,
+  nombre varchar(80),
+  clave integer,
+  localidad integer REFERENCES localidad
+);
+
+-- This only holds the turns, originally this wasn't defined on the CVS but we
+-- need it for the escuelas_enlace_nacional_primaria table
+CREATE TABLE turnos(
+  id integer PRIMARY KEY,
+  nombre varchar(15) -- Not defined, just assumed
+);
+
+-- Catalog for the types of school
+CREATE TABLE tipos_de_escuela(
+  id integer PRIMARY KEY,
+  nombre varchar(15)
+);
+
+CREATE TABLE grados_de_marginacion(
+  id integer PRIMARY KEY,
+  nombre varchar(25)
+);
+
+-- Primary table with the most reelevant data
+CREATE TABLE escuelas_enlace_nacional_primaria (
+  id integer PRIMARY KEY,
+  entidad integer REFERENCES entidades, -- No need to identify the column, thanks postgres
+  clave varchar(15) NOT NULL,
+  turno integer REFERENCES turnos,
+  nombre varchar(150),
+  tipo integer REFERENCES tipos_de_escuela,
+  municipio integer REFERENCES municipios,
+  localidad integer REFERENCES localidad,
+  region integer REFERENCES region,
+  zona_esc varchar(50),
+  marginacion integer REFERENCES grados_de_marginacion
+);
+
+CREATE TABLE materias(
+  id integer PRIMARY KEY,
+  nombre varchar(25)
+);
+
+CREATE TABLE grados(
+  id integer PRIMARY KEY,
+  nombre varchar(10)
+);
+
+CREATE TABLE medias(
+  id integer PRIMARY KEY,
+  escuela integer REFERENCES escuelas_enlace_nacional_primaria,
+  grado integer REFERENCES grados,
+  materia integer REFERENCES materias,
+  valor NUMERIC(3)
+);
+
+CREATE TABLE metricas(
+  id integer PRIMARY KEY,
+  nombre varchar(20)
+);
+
+CREATE TABLE logros(
+  id integer PRIMARY KEY,
+  escuela integer REFERENCES escuelas_enlace_nacional_primaria,
+  grado integer REFERENCES grados,
+  materia integer REFERENCES materias,
+  metrica integer REFERENCES metricas,
+  valor NUMERIC(3)
+);
+
+CREATE TABLE poco_confiable(
+  id integer PRIMARY KEY,
+  escuela integer REFERENCES escuelas_enlace_nacional_primaria,
+  grado integer REFERENCES grados,
+  valor integer DEFAULT 0
+);
+
+CREATE TABLE evaluados(
+  id integer PRIMARY KEY,
+  escuela integer REFERENCES escuelas_enlace_nacional_primaria,
+  grado integer REFERENCES grados,
+  valor integer
+);
