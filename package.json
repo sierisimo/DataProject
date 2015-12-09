@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/sierisimo/DataProject#readme",
   "dependencies": {
+    "pg": "^4.4.3",
     "xlsjs": "^0.7.5"
   },
   "devDependencies": {
