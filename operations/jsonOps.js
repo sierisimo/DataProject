@@ -25,10 +25,15 @@ function toJSON(csvArrayContent) {
     result[header] = [];
 
     for (var j = 0; j < csvArrayContent.length; j++) {
-      if (csvArrayContent[j][i].length === 0)
+      if (csvArrayContent[j][i].length === 0) {
         result[header].push(null);
-      else
-        result[header].push(csvArrayContent[j][i]);
+      } else {
+        if (header === 'ent') {
+          result[header].push(Number.parseInt(csvArrayContent[j][i]));
+        } else {
+          result[header].push(csvArrayContent[j][i]);
+        }
+      }
     }
   }
 

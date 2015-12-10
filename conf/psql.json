@@ -1,0 +1,6 @@
+{
+  "username":"postgres",
+  "password":"reverse",
+  "host":"localhost",
+  "database":"Schools_test"
+}

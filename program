@@ -7,7 +7,7 @@ const NAME = "escuelas_enlace_nacional_primaria_total";
 global.FILE_NAME = NAME;
 
 var program = require('commander'),
-files = require('./operations/files'),
+  files = require('./operations/files'),
   jsonOps = require('./operations/jsonOps'),
   db = require('./operations/db');
 
