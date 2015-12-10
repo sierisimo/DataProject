@@ -14,26 +14,26 @@
 
 /* Table that represents 'Entidades Federales' of Mexico */
 CREATE TABLE entidades(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nombre varchar(30) NOT NULL-- No states has more than this length
 );
 
 CREATE TABLE municipios(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nombre varchar(80) NOT NULL,
   clave integer,
   entidad integer REFERENCES entidades
 );
 
 CREATE TABLE localidad(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nombre varchar(80) NOT NULL,
   clave integer,
   municipio integer REFERENCES municipios
 );
 
 CREATE TABLE region(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nombre varchar(80) NOT NULL,
   clave integer,
   localidad integer REFERENCES localidad
@@ -42,24 +42,24 @@ CREATE TABLE region(
 -- This only holds the turns, originally this wasn't defined on the CVS but we
 -- need it for the escuelas_enlace_nacional_primaria table
 CREATE TABLE turnos(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nombre varchar(15) NOT NULL -- Not defined, just assumed
 );
 
 -- Catalog for the types of school
 CREATE TABLE tipos_de_escuela(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nombre varchar(15) NOT NULL
 );
 
 CREATE TABLE grados_de_marginacion(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nombre varchar(25) NOT NULL
 );
 
 -- Primary table with the most reelevant data
 CREATE TABLE escuelas_enlace_nacional_primaria (
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   entidad integer REFERENCES entidades, -- No need to identify the column, thanks postgres
   clave varchar(15) NOT NULL,
   turno integer REFERENCES turnos,
@@ -73,30 +73,30 @@ CREATE TABLE escuelas_enlace_nacional_primaria (
 );
 
 CREATE TABLE materias(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nombre varchar(25) NOT NULL
 );
 
 CREATE TABLE grados(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nombre varchar(10) NOT NULL
 );
 
 CREATE TABLE medias(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   escuela integer REFERENCES escuelas_enlace_nacional_primaria,
   grado integer REFERENCES grados,
   materia integer REFERENCES materias,
-  valor NUMERIC(3) 
+  valor NUMERIC(3)
 );
 
 CREATE TABLE metricas(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nombre varchar(20)
 );
 
 CREATE TABLE logros(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   escuela integer REFERENCES escuelas_enlace_nacional_primaria,
   grado integer REFERENCES grados,
   materia integer REFERENCES materias,
@@ -105,14 +105,14 @@ CREATE TABLE logros(
 );
 
 CREATE TABLE poco_confiable(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   escuela integer REFERENCES escuelas_enlace_nacional_primaria,
   grado integer REFERENCES grados,
   valor integer DEFAULT 0
 );
 
 CREATE TABLE evaluados(
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   escuela integer REFERENCES escuelas_enlace_nacional_primaria,
   grado integer REFERENCES grados,
   valor integer

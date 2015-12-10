@@ -17,7 +17,6 @@ function saveInOLTP() {
 
     debug("JSON was imported!");
   } catch (e) {
-    debug(e);
     debug("No JSON previously created, creating a temporal one");
     dataInJson = require(__dirname + '/jsonOps').data;
   }
@@ -42,29 +41,29 @@ function createSets(obj) {
 
   var connectionStr = "postgres://" + pgConf.username + ":" + pgConf.password + "@" + pgConf.host + "/" + pgConf.database;
 
-  // pg.connect(connectionStr, function(err, client, done) {
-  var query;
+  pg.connect(connectionStr, function(err, client, done) {
+    var query;
 
-  // if (err) return done(client);
+    if (err) return done(client);
 
-  for (var table in sets) {
-    query = "INSERT INTO " + table + "(nombre) VALUES('";
+    for (var table in sets) {
+      query = "INSERT INTO " + table + "(nombre) VALUES('";
 
-    sets[table].forEach(function(val) {
-      query += val + "'),('";
-    });
+      sets[table].forEach(function(val) {
+        query += val + "'),('";
+      });
 
-    debug(table, "==>", query);
+      debug(table, "==>", query);
 
-    query = query.substring(0, query.length - 3);
+      query = query.substring(0, query.length - 3);
 
-    //client.query(query, function(err, result){
-    // done();
+      client.query(query, function(err, result) {
+        done();
 
-    // if(err) return;
-    // });
-  }
-  // });
+        if (err) return;
+      });
+    }
+  });
 }
 
 function storeInPG(jsonObj) {

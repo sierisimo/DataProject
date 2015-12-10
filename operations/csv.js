@@ -1,6 +1,5 @@
 var debug = require('debug')('CSV');
 
-
 function readFile() {
   var fs = require('fs'),
     content = fs.readFileSync('./data/' + FILE_NAME + '.csv', {
@@ -13,41 +12,38 @@ function readFile() {
 
 function asArray() {
   var csvStr = readFile(),
-    arrLines = csvStr.split('\n');
+    arrLines = csvStr.split('\n'),
+    innerArr, words, o, backWord;
 
   if (arrLines[arrLines.length - 1].length === 0) {
     arrLines.pop();
   }
 
-    arrLines.forEach(function(el, inx, a) {
-      var innerArr = [],
-        words = "";
-      for (var o = 0; o < el.length; o++) {
-        if (el[o] !== ',' && el[o] !== '"') {
+  arrLines.forEach(function(el, inx, a) {
+    innerArr = [];
+    words = "";
+
+    for (o = 0; o < el.length; o++) {
+      if (el[o] !== ',' && el[o] !== '"') {
+        words += el[o];
+        backWord = words;
+        continue;
+      } else if (el[o] === '"') {
+        o++;
+        while (el[o] !== '"') {
           words += el[o];
-          continue;
-        } else if (el[o] === '"') {
           o++;
-          while (el[o] !== '"') {
-            try{
-            words += el[o];
-            o++;
-          }catch(e){
-            console.log("SIER"+inx);
-            console.log(words);
-            throw e;
-          }
-
-          }
         }
-
+      } else {
         innerArr.push(words);
         words = "";
       }
-      a[inx] = innerArr;
-    });
+    }
+    innerArr.push(backWord);
 
-  // arrLines.forEach((el, inx, a) => a[inx] = el.split(','));
+    a[inx] = innerArr;
+  });
+
   return arrLines;
 }
 
