@@ -14,5 +14,5 @@ files = require('./operations/files'),
 program.version('0.1.0')
   .option('-c, --clear', 'Clear the generated files', files.clean)
   .option('-d, --database', 'Store the CVS to PostgreSQL', db.store)
-  .option('-j, --json <fileName>', 'Transform the CVS to a JSON', jsonOps.toFile)
+  .option('-j, --json', 'Transform the CVS to a JSON, this helps performance', jsonOps.toFile)
   .parse(process.argv);

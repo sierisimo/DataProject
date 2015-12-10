@@ -27,5 +27,4 @@ function asArray() {
   return arrLines;
 }
 
-exports.raw = readFile();
 exports.asArray = asArray();

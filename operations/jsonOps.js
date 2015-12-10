@@ -1,16 +1,21 @@
 var csv = require('./csv'),
   debug = require('debug')('JSON Operations');
 
-function storeInFile(fileName) {
+function storeInFile() {
   var json = toJSON(csv.asArray);
 
-  require('fs').writeFileSync('./data/' + fileName, JSON.stringify(json), 'utf8');
+  debug("Writting to file system...");
+
+  require('fs').writeFileSync('./data/' + FILE_NAME + '.json', JSON.stringify(json), 'utf8');
+
+  debug("...DONE");
 }
 
 function toJSON(csvArrayContent) {
   var headers = csvArrayContent.shift(),
     result = {},
     header;
+  debug("Generating JSON data...");
 
   for (var i = 0; i < headers.length; i++) {
     header = headers[i].toLowerCase();
@@ -30,8 +35,12 @@ function toJSON(csvArrayContent) {
   return result;
 }
 
-exports.data = (function() {
-  return toJSON(csv.asArray);
-})();
+exports.__data;
+exports.__defineGetter__('data', function() {
+  if (!this.__data)
+    __data = toJSON(csv.asArray);
+
+  return __data;
+});
 
 exports.toFile = storeInFile;

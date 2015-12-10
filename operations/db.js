@@ -6,11 +6,16 @@ function saveInOLTP() {
   var dataInJson;
 
   try {
-    fs.accessSync('./data' + FILE_NAME, fs.F_OK);
+    debug("Checking for previous JSON cached file...");
+
+    fs.accessSync('./data/' + FILE_NAME + '.json', fs.F_OK);
+
+    debug("Cached JSON found!")
+
+    dataInJson = require('./data/' + FILE_NAME + '.json');
   } catch (e) {
     debug("No JSON previously created, creating a temporal one");
     dataInJson = require('./jsonOps').data;
-    debug(dataInJson.ent.length);
   }
 }
 
