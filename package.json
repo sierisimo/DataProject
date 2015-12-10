@@ -4,8 +4,7 @@
   "description": "The final project for an school class",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js",
-    "test": "mocha"
+    "start": "DEBUG=* ./program --help"
   },
   "repository": {
     "type": "git",
@@ -22,13 +21,10 @@
   },
   "homepage": "https://github.com/sierisimo/DataProject#readme",
   "dependencies": {
-    "pg": "^4.4.3",
-    "xlsjs": "^0.7.5"
+    "commander": "^2.9.0",
+    "pg": "^4.4.3"
   },
   "devDependencies": {
-    "debug": "^2.2.0",
-    "gulp": "^3.9.0",
-    "gulp-util": "^3.0.7",
-    "run-sequence": "^1.1.5"
+    "debug": "^2.2.0"
   }
 }

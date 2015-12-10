@@ -1,0 +1,18 @@
+#! /usr/bin/env node
+
+process.env.DEBUG = "*";
+
+const NAME = "escuelas_enlace_nacional_primaria_total";
+
+global.FILE_NAME = NAME;
+
+var program = require('commander'),
+files = require('./operations/files'),
+  jsonOps = require('./operations/jsonOps'),
+  db = require('./operations/db');
+
+program.version('0.1.0')
+  .option('-c, --clear', 'Clear the generated files', files.clean)
+  .option('-d, --database', 'Store the CVS to PostgreSQL', db.store)
+  .option('-j, --json <fileName>', 'Transform the CVS to a JSON', jsonOps.toFile)
+  .parse(process.argv);
