@@ -23,7 +23,7 @@ function saveInOLTP() {
 
   createSets(dataInJson);
 
-  // storeInPG(dataInJson);
+  storeInPG(dataInJson);
 }
 
 function createSets(obj) {
@@ -87,6 +87,9 @@ function storeInPG(jsonObj) {
 
   pg.connect(connectionStr, function(err, client, done) {
     if (handleError(err, client)) return;
+
+    var queries = [];
+
 
     client.query('SELECT \'HEllo\'', function(err, result) {
       if (handleError(err, client)) {

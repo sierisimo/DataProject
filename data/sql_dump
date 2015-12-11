@@ -1,0 +1,1302 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: entidades; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE entidades (
+    id integer NOT NULL,
+    nombre character varying(30)
+);
+
+
+ALTER TABLE entidades OWNER TO sierisimo;
+
+--
+-- Name: entidades_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE entidades_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE entidades_id_seq OWNER TO sierisimo;
+
+--
+-- Name: entidades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE entidades_id_seq OWNED BY entidades.id;
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE escuelas_enlace_nacional_primaria (
+    id integer NOT NULL,
+    entidad integer,
+    clave character varying(15),
+    turno integer,
+    nombre character varying(150) NOT NULL,
+    tipo integer,
+    municipio integer,
+    localidad integer,
+    region integer,
+    zona_esc character varying(50),
+    marginacion integer
+);
+
+
+ALTER TABLE escuelas_enlace_nacional_primaria OWNER TO sierisimo;
+
+--
+-- Name: escuelas_enlace_nacional_primaria_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE escuelas_enlace_nacional_primaria_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE escuelas_enlace_nacional_primaria_id_seq OWNER TO sierisimo;
+
+--
+-- Name: escuelas_enlace_nacional_primaria_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE escuelas_enlace_nacional_primaria_id_seq OWNED BY escuelas_enlace_nacional_primaria.id;
+
+
+--
+-- Name: evaluados; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE evaluados (
+    id integer NOT NULL,
+    escuela integer,
+    grado integer,
+    valor integer
+);
+
+
+ALTER TABLE evaluados OWNER TO sierisimo;
+
+--
+-- Name: evaluados_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE evaluados_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE evaluados_id_seq OWNER TO sierisimo;
+
+--
+-- Name: evaluados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE evaluados_id_seq OWNED BY evaluados.id;
+
+
+--
+-- Name: grados; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE grados (
+    id integer NOT NULL,
+    nombre character varying(10)
+);
+
+
+ALTER TABLE grados OWNER TO sierisimo;
+
+--
+-- Name: grados_de_marginacion; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE grados_de_marginacion (
+    id integer NOT NULL,
+    nombre character varying(25)
+);
+
+
+ALTER TABLE grados_de_marginacion OWNER TO sierisimo;
+
+--
+-- Name: grados_de_marginacion_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE grados_de_marginacion_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE grados_de_marginacion_id_seq OWNER TO sierisimo;
+
+--
+-- Name: grados_de_marginacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE grados_de_marginacion_id_seq OWNED BY grados_de_marginacion.id;
+
+
+--
+-- Name: grados_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE grados_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE grados_id_seq OWNER TO sierisimo;
+
+--
+-- Name: grados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE grados_id_seq OWNED BY grados.id;
+
+
+--
+-- Name: localidad; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE localidad (
+    id integer NOT NULL,
+    nombre character varying(80) NOT NULL,
+    clave integer,
+    municipio integer
+);
+
+
+ALTER TABLE localidad OWNER TO sierisimo;
+
+--
+-- Name: localidad_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE localidad_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE localidad_id_seq OWNER TO sierisimo;
+
+--
+-- Name: localidad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE localidad_id_seq OWNED BY localidad.id;
+
+
+--
+-- Name: logros; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE logros (
+    id integer NOT NULL,
+    escuela integer,
+    grado integer,
+    materia integer,
+    metrica integer,
+    valor numeric(3,0)
+);
+
+
+ALTER TABLE logros OWNER TO sierisimo;
+
+--
+-- Name: logros_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE logros_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE logros_id_seq OWNER TO sierisimo;
+
+--
+-- Name: logros_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE logros_id_seq OWNED BY logros.id;
+
+
+--
+-- Name: materias; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE materias (
+    id integer NOT NULL,
+    nombre character varying(25)
+);
+
+
+ALTER TABLE materias OWNER TO sierisimo;
+
+--
+-- Name: materias_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE materias_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE materias_id_seq OWNER TO sierisimo;
+
+--
+-- Name: materias_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE materias_id_seq OWNED BY materias.id;
+
+
+--
+-- Name: medias; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE medias (
+    id integer NOT NULL,
+    escuela integer,
+    grado integer,
+    materia integer,
+    valor numeric(3,0)
+);
+
+
+ALTER TABLE medias OWNER TO sierisimo;
+
+--
+-- Name: medias_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE medias_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE medias_id_seq OWNER TO sierisimo;
+
+--
+-- Name: medias_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE medias_id_seq OWNED BY medias.id;
+
+
+--
+-- Name: metricas; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE metricas (
+    id integer NOT NULL,
+    nombre character varying(20)
+);
+
+
+ALTER TABLE metricas OWNER TO sierisimo;
+
+--
+-- Name: metricas_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE metricas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE metricas_id_seq OWNER TO sierisimo;
+
+--
+-- Name: metricas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE metricas_id_seq OWNED BY metricas.id;
+
+
+--
+-- Name: municipios; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE municipios (
+    id integer NOT NULL,
+    nombre character varying(80) NOT NULL,
+    clave integer,
+    entidad integer
+);
+
+
+ALTER TABLE municipios OWNER TO sierisimo;
+
+--
+-- Name: municipios_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE municipios_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE municipios_id_seq OWNER TO sierisimo;
+
+--
+-- Name: municipios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE municipios_id_seq OWNED BY municipios.id;
+
+
+--
+-- Name: poco_confiable; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE poco_confiable (
+    id integer NOT NULL,
+    escuela integer,
+    grado integer,
+    valor integer DEFAULT 0
+);
+
+
+ALTER TABLE poco_confiable OWNER TO sierisimo;
+
+--
+-- Name: poco_confiable_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE poco_confiable_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE poco_confiable_id_seq OWNER TO sierisimo;
+
+--
+-- Name: poco_confiable_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE poco_confiable_id_seq OWNED BY poco_confiable.id;
+
+
+--
+-- Name: region; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE region (
+    id integer NOT NULL,
+    nombre character varying(80) NOT NULL,
+    clave integer,
+    localidad integer
+);
+
+
+ALTER TABLE region OWNER TO sierisimo;
+
+--
+-- Name: region_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE region_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE region_id_seq OWNER TO sierisimo;
+
+--
+-- Name: region_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE region_id_seq OWNED BY region.id;
+
+
+--
+-- Name: tipos_de_escuela; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE tipos_de_escuela (
+    id integer NOT NULL,
+    nombre character varying(15)
+);
+
+
+ALTER TABLE tipos_de_escuela OWNER TO sierisimo;
+
+--
+-- Name: tipos_de_escuela_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE tipos_de_escuela_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tipos_de_escuela_id_seq OWNER TO sierisimo;
+
+--
+-- Name: tipos_de_escuela_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE tipos_de_escuela_id_seq OWNED BY tipos_de_escuela.id;
+
+
+--
+-- Name: turnos; Type: TABLE; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+CREATE TABLE turnos (
+    id integer NOT NULL,
+    nombre character varying(15)
+);
+
+
+ALTER TABLE turnos OWNER TO sierisimo;
+
+--
+-- Name: turnos_id_seq; Type: SEQUENCE; Schema: public; Owner: sierisimo
+--
+
+CREATE SEQUENCE turnos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE turnos_id_seq OWNER TO sierisimo;
+
+--
+-- Name: turnos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sierisimo
+--
+
+ALTER SEQUENCE turnos_id_seq OWNED BY turnos.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY entidades ALTER COLUMN id SET DEFAULT nextval('entidades_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY escuelas_enlace_nacional_primaria ALTER COLUMN id SET DEFAULT nextval('escuelas_enlace_nacional_primaria_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY evaluados ALTER COLUMN id SET DEFAULT nextval('evaluados_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY grados ALTER COLUMN id SET DEFAULT nextval('grados_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY grados_de_marginacion ALTER COLUMN id SET DEFAULT nextval('grados_de_marginacion_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY localidad ALTER COLUMN id SET DEFAULT nextval('localidad_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY logros ALTER COLUMN id SET DEFAULT nextval('logros_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY materias ALTER COLUMN id SET DEFAULT nextval('materias_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY medias ALTER COLUMN id SET DEFAULT nextval('medias_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY metricas ALTER COLUMN id SET DEFAULT nextval('metricas_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY municipios ALTER COLUMN id SET DEFAULT nextval('municipios_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY poco_confiable ALTER COLUMN id SET DEFAULT nextval('poco_confiable_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY region ALTER COLUMN id SET DEFAULT nextval('region_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY tipos_de_escuela ALTER COLUMN id SET DEFAULT nextval('tipos_de_escuela_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY turnos ALTER COLUMN id SET DEFAULT nextval('turnos_id_seq'::regclass);
+
+
+--
+-- Data for Name: entidades; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY entidades (id, nombre) FROM stdin;
+1	AGUASCALIENTES
+2	BAJA CALIFORNIA
+3	BAJA CALIFORNIA SUR
+4	CAMPECHE
+5	COAHUILA
+6	COLIMA
+7	CHIAPAS ESTATAL
+8	CHIHUAHUA
+9	DISTRITO FEDERAL
+10	DURANGO
+11	GUANAJUATO
+12	GUERRERO
+13	HIDALGO
+14	JALISCO
+15	ESTADO DE MEXICO
+16	MICHOACAN
+17	MORELOS
+18	NAYARIT
+19	NUEVO LEON
+20	OAXACA
+21	PUEBLA
+22	QUERETARO
+23	QUINTANA ROO
+24	SAN LUIS POTOSI
+25	SINALOA
+26	SONORA
+27	TABASCO
+28	TAMAULIPAS
+29	TLAXCALA
+30	VERACRUZ
+31	YUCATAN
+32	ZACATECAS
+\.
+
+
+--
+-- Name: entidades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('entidades_id_seq', 34, true);
+
+
+--
+-- Data for Name: escuelas_enlace_nacional_primaria; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY escuelas_enlace_nacional_primaria (id, entidad, clave, turno, nombre, tipo, municipio, localidad, region, zona_esc, marginacion) FROM stdin;
+\.
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('escuelas_enlace_nacional_primaria_id_seq', 1, false);
+
+
+--
+-- Data for Name: evaluados; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY evaluados (id, escuela, grado, valor) FROM stdin;
+\.
+
+
+--
+-- Name: evaluados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('evaluados_id_seq', 1, false);
+
+
+--
+-- Data for Name: grados; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY grados (id, nombre) FROM stdin;
+1	tercero
+2	cuarto
+3	quinto
+\.
+
+
+--
+-- Data for Name: grados_de_marginacion; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY grados_de_marginacion (id, nombre) FROM stdin;
+1	MUY BAJO
+2	BAJO
+3	ALTO
+4	MEDIO
+5	MUY ALTO
+\.
+
+
+--
+-- Name: grados_de_marginacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('grados_de_marginacion_id_seq', 7, true);
+
+
+--
+-- Name: grados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('grados_id_seq', 5, true);
+
+
+--
+-- Data for Name: localidad; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY localidad (id, nombre, clave, municipio) FROM stdin;
+\.
+
+
+--
+-- Name: localidad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('localidad_id_seq', 1, false);
+
+
+--
+-- Data for Name: logros; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY logros (id, escuela, grado, materia, metrica, valor) FROM stdin;
+\.
+
+
+--
+-- Name: logros_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('logros_id_seq', 1, false);
+
+
+--
+-- Data for Name: materias; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY materias (id, nombre) FROM stdin;
+1	español
+2	matematicas
+3	formacion civica y etica
+\.
+
+
+--
+-- Name: materias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('materias_id_seq', 5, true);
+
+
+--
+-- Data for Name: medias; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY medias (id, escuela, grado, materia, valor) FROM stdin;
+\.
+
+
+--
+-- Name: medias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('medias_id_seq', 1, false);
+
+
+--
+-- Data for Name: metricas; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY metricas (id, nombre) FROM stdin;
+1	insuficiente
+2	elemental
+3	bueno
+4	excelente
+\.
+
+
+--
+-- Name: metricas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('metricas_id_seq', 6, true);
+
+
+--
+-- Data for Name: municipios; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY municipios (id, nombre, clave, entidad) FROM stdin;
+\.
+
+
+--
+-- Name: municipios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('municipios_id_seq', 1, false);
+
+
+--
+-- Data for Name: poco_confiable; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY poco_confiable (id, escuela, grado, valor) FROM stdin;
+\.
+
+
+--
+-- Name: poco_confiable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('poco_confiable_id_seq', 1, false);
+
+
+--
+-- Data for Name: region; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY region (id, nombre, clave, localidad) FROM stdin;
+\.
+
+
+--
+-- Name: region_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('region_id_seq', 1, false);
+
+
+--
+-- Data for Name: tipos_de_escuela; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY tipos_de_escuela (id, nombre) FROM stdin;
+1	GENERAL
+2	CONAFE
+3	PARTICULAR
+4	INDÍGENA
+\.
+
+
+--
+-- Name: tipos_de_escuela_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('tipos_de_escuela_id_seq', 6, true);
+
+
+--
+-- Data for Name: turnos; Type: TABLE DATA; Schema: public; Owner: sierisimo
+--
+
+COPY turnos (id, nombre) FROM stdin;
+1	1
+2	2
+3	3
+\.
+
+
+--
+-- Name: turnos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sierisimo
+--
+
+SELECT pg_catalog.setval('turnos_id_seq', 5, true);
+
+
+--
+-- Name: entidades_nombre_key; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY entidades
+    ADD CONSTRAINT entidades_nombre_key UNIQUE (nombre);
+
+
+--
+-- Name: entidades_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY entidades
+    ADD CONSTRAINT entidades_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria_clave_key; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY escuelas_enlace_nacional_primaria
+    ADD CONSTRAINT escuelas_enlace_nacional_primaria_clave_key UNIQUE (clave);
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY escuelas_enlace_nacional_primaria
+    ADD CONSTRAINT escuelas_enlace_nacional_primaria_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evaluados_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY evaluados
+    ADD CONSTRAINT evaluados_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: grados_de_marginacion_nombre_key; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY grados_de_marginacion
+    ADD CONSTRAINT grados_de_marginacion_nombre_key UNIQUE (nombre);
+
+
+--
+-- Name: grados_de_marginacion_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY grados_de_marginacion
+    ADD CONSTRAINT grados_de_marginacion_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: grados_nombre_key; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY grados
+    ADD CONSTRAINT grados_nombre_key UNIQUE (nombre);
+
+
+--
+-- Name: grados_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY grados
+    ADD CONSTRAINT grados_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: localidad_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY localidad
+    ADD CONSTRAINT localidad_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: logros_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY logros
+    ADD CONSTRAINT logros_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: materias_nombre_key; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY materias
+    ADD CONSTRAINT materias_nombre_key UNIQUE (nombre);
+
+
+--
+-- Name: materias_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY materias
+    ADD CONSTRAINT materias_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: medias_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY medias
+    ADD CONSTRAINT medias_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: metricas_nombre_key; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY metricas
+    ADD CONSTRAINT metricas_nombre_key UNIQUE (nombre);
+
+
+--
+-- Name: metricas_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY metricas
+    ADD CONSTRAINT metricas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: municipios_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY municipios
+    ADD CONSTRAINT municipios_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: poco_confiable_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY poco_confiable
+    ADD CONSTRAINT poco_confiable_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: region_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY region
+    ADD CONSTRAINT region_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tipos_de_escuela_nombre_key; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY tipos_de_escuela
+    ADD CONSTRAINT tipos_de_escuela_nombre_key UNIQUE (nombre);
+
+
+--
+-- Name: tipos_de_escuela_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY tipos_de_escuela
+    ADD CONSTRAINT tipos_de_escuela_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: turnos_nombre_key; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY turnos
+    ADD CONSTRAINT turnos_nombre_key UNIQUE (nombre);
+
+
+--
+-- Name: turnos_pkey; Type: CONSTRAINT; Schema: public; Owner: sierisimo; Tablespace: 
+--
+
+ALTER TABLE ONLY turnos
+    ADD CONSTRAINT turnos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria_entidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY escuelas_enlace_nacional_primaria
+    ADD CONSTRAINT escuelas_enlace_nacional_primaria_entidad_fkey FOREIGN KEY (entidad) REFERENCES entidades(id);
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria_localidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY escuelas_enlace_nacional_primaria
+    ADD CONSTRAINT escuelas_enlace_nacional_primaria_localidad_fkey FOREIGN KEY (localidad) REFERENCES localidad(id);
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria_marginacion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY escuelas_enlace_nacional_primaria
+    ADD CONSTRAINT escuelas_enlace_nacional_primaria_marginacion_fkey FOREIGN KEY (marginacion) REFERENCES grados_de_marginacion(id);
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY escuelas_enlace_nacional_primaria
+    ADD CONSTRAINT escuelas_enlace_nacional_primaria_municipio_fkey FOREIGN KEY (municipio) REFERENCES municipios(id);
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria_region_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY escuelas_enlace_nacional_primaria
+    ADD CONSTRAINT escuelas_enlace_nacional_primaria_region_fkey FOREIGN KEY (region) REFERENCES region(id);
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria_tipo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY escuelas_enlace_nacional_primaria
+    ADD CONSTRAINT escuelas_enlace_nacional_primaria_tipo_fkey FOREIGN KEY (tipo) REFERENCES tipos_de_escuela(id);
+
+
+--
+-- Name: escuelas_enlace_nacional_primaria_turno_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY escuelas_enlace_nacional_primaria
+    ADD CONSTRAINT escuelas_enlace_nacional_primaria_turno_fkey FOREIGN KEY (turno) REFERENCES turnos(id);
+
+
+--
+-- Name: evaluados_escuela_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY evaluados
+    ADD CONSTRAINT evaluados_escuela_fkey FOREIGN KEY (escuela) REFERENCES escuelas_enlace_nacional_primaria(id);
+
+
+--
+-- Name: evaluados_grado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY evaluados
+    ADD CONSTRAINT evaluados_grado_fkey FOREIGN KEY (grado) REFERENCES grados(id);
+
+
+--
+-- Name: localidad_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY localidad
+    ADD CONSTRAINT localidad_municipio_fkey FOREIGN KEY (municipio) REFERENCES municipios(id);
+
+
+--
+-- Name: logros_escuela_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY logros
+    ADD CONSTRAINT logros_escuela_fkey FOREIGN KEY (escuela) REFERENCES escuelas_enlace_nacional_primaria(id);
+
+
+--
+-- Name: logros_grado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY logros
+    ADD CONSTRAINT logros_grado_fkey FOREIGN KEY (grado) REFERENCES grados(id);
+
+
+--
+-- Name: logros_materia_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY logros
+    ADD CONSTRAINT logros_materia_fkey FOREIGN KEY (materia) REFERENCES materias(id);
+
+
+--
+-- Name: logros_metrica_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY logros
+    ADD CONSTRAINT logros_metrica_fkey FOREIGN KEY (metrica) REFERENCES metricas(id);
+
+
+--
+-- Name: medias_escuela_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY medias
+    ADD CONSTRAINT medias_escuela_fkey FOREIGN KEY (escuela) REFERENCES escuelas_enlace_nacional_primaria(id);
+
+
+--
+-- Name: medias_grado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY medias
+    ADD CONSTRAINT medias_grado_fkey FOREIGN KEY (grado) REFERENCES grados(id);
+
+
+--
+-- Name: medias_materia_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY medias
+    ADD CONSTRAINT medias_materia_fkey FOREIGN KEY (materia) REFERENCES materias(id);
+
+
+--
+-- Name: municipios_entidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY municipios
+    ADD CONSTRAINT municipios_entidad_fkey FOREIGN KEY (entidad) REFERENCES entidades(id);
+
+
+--
+-- Name: poco_confiable_escuela_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY poco_confiable
+    ADD CONSTRAINT poco_confiable_escuela_fkey FOREIGN KEY (escuela) REFERENCES escuelas_enlace_nacional_primaria(id);
+
+
+--
+-- Name: poco_confiable_grado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY poco_confiable
+    ADD CONSTRAINT poco_confiable_grado_fkey FOREIGN KEY (grado) REFERENCES grados(id);
+
+
+--
+-- Name: region_localidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sierisimo
+--
+
+ALTER TABLE ONLY region
+    ADD CONSTRAINT region_localidad_fkey FOREIGN KEY (localidad) REFERENCES localidad(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: sierisimo
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM sierisimo;
+GRANT ALL ON SCHEMA public TO sierisimo;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
